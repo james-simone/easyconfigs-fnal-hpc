@@ -4,7 +4,7 @@ version = '4.1.5'
 homepage = 'https://www.open-mpi.org/'
 description = """The Open MPI Project is an open source MPI-3 implementation."""
 
-toolchain = {'name': 'GCCcore', 'version': 'system'}
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 source_urls = ['https://www.open-mpi.org/software/ompi/v%(version_major_minor)s/downloads']
 sources = [SOURCELOWER_TAR_BZ2]
@@ -27,13 +27,13 @@ checksums = [
 #]
 
 dependencies = [
-    ('zlib', '1.2.13'),
-    ('hwloc', '2.9.2'),
-    ('libevent', '2.1.12'),
-    ('UCX', '1.14.1'),
-#    ('libfabric', '1.16.1'),
-    ('PMIx', '4.2.4'),
-    ('UCC', '1.2.0'),
+    ('zlib', '1.2.13', '', SYSTEM),
+    ('hwloc', '2.9.2', '', SYSTEM),
+    ('libevent', '2.1.12', '', SYSTEM),
+    ('UCX', '1.14.1', '', SYSTEM),
+#    ('libfabric', '1.18.0'),
+    ('PMIx', '4.2.4', '', SYSTEM),
+    ('UCC', '1.2.0', '', SYSTEM),
 ]
 
 # Update configure to include changes from the "internal-cuda" patch
@@ -53,6 +53,7 @@ preconfigopts = ' && '.join([
 # CUDA related patches and custom configure option can be removed if CUDA support isn't wanted.
 configopts = '--with-cuda=internal '
 
+# disable MPI1 compatibility for now, see what breaks...
 configopts += '--enable-mpi1-compatibility '
 
 # to enable SLURM integration (site-specific)
