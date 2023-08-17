@@ -1,0 +1,54 @@
+name = 'MVAPICH2'
+version = '2.3.7-1'
+
+homepage = 'http://mvapich.cse.ohio-state.edu/overview/mvapich2/'
+description = "This is an MPI 3.0 implementation.  It is based on MPICH2 and MVICH."
+
+toolchain = SYSTEM
+
+source_urls = ['http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/']
+sources = [SOURCELOWER_TAR_GZ]
+
+# Let's store the checksum in order to be sure it doesn't suddenly change
+checksums = ['fdd971cf36d6476d007b5d63d19414546ca8a2937b66886f24a1d9ca154634e4']
+
+#builddependencies = [('Bison', '3.0.4')]
+
+configopts = ''
+configopts += '--disable-alloca '
+configopts += '--disable-cuda '
+configopts += '--disable-mcast '
+configopts += '--disable-new-dtags '
+configopts += '--disable-silent-rules '
+configopts += '--enable-cxx '
+configopts += '--enable-fast=all '
+configopts += '--enable-fortran=all '
+configopts += '--enable-registration-cache '
+configopts += '--enable-romio '
+configopts += '--enable-shared '
+configopts += '--enable-static '
+configopts += '--enable-threads=multiple '
+configopts += '--enable-wrapper-rpath=yes '
+configopts += '--with-device=ch3:mrail '
+configopts += '--with-file-system=lustre,nfs '
+configopts += '--with-hwloc=v2 '
+configopts += '--with-pm=slurm '
+configopts += '--with-pmi=pmi2 '
+configopts += '--with-rdma=gen2 '
+configopts += '--with-slurm=/usr '
+configopts += '--with-thread-package=pthreads '
+
+sanity_check_paths = {
+    'files': ["bin/%s" % x for x in ["mpiexec", "mpivars"]] +
+             ["lib/lib%s.%s" % (x, SHLIB_EXT) for x in [ "mpi", "mpich", "mpifort" ]] +
+             ["include/%s.h" % x for x in [ "mpif", "mpi", "mpicxx"]],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    ('mpicc --version | grep gcc', ''),
+    ('mpicxx --version | grep g++', ''),
+    ('mpifort --version | grep Fortran', ''),
+]
+
+moduleclass = 'mpi'
