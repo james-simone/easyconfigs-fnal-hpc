@@ -16,7 +16,7 @@ checksums = ['fdd971cf36d6476d007b5d63d19414546ca8a2937b66886f24a1d9ca154634e4']
 #builddependencies = [('Bison', '3.0.4')]
 
 dependencies = [
-    ('cuda/12.1.1', EXTERNAL_MODULE),
+    ('cuda/12.2.1', EXTERNAL_MODULE),
 ]
 
 configopts = ''

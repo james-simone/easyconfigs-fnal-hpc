@@ -1,6 +1,10 @@
+import os
+import re
 
-class LowerHierarchicalMNS(HierarchicalMNS):
-    """ HierarchicalMNS but with lowercase module names. """
+from easybuild.tools.module_naming_scheme.mns import ModuleNamingScheme
+
+class LowerFlatMNS(ModuleNamingScheme):
+    """ Example from tutorial http://tutorial.easybuild.io/2023-eb-eessi-uk-workshop/easybuild-module-naming-schemes/ """
 
     REQUIRED_KEYS = ['name', 'version', 'versionsuffix', 'toolchain']
 
@@ -28,19 +32,7 @@ class LowerHierarchicalMNS(HierarchicalMNS):
         return modname.lower()
 
     def is_short_modname_for(self, short_modname, name):
-        """
-        Determine whether the specified (short) module name is a module for software with the specified name.
-        Default implementation checks via a strict regex pattern, and assumes short module names are of the form:
-            <name>/<version>[-<toolchain>]
-        """
+        """Determine whether short module name is a module for the software with specified name."""
+        return short_modname.startswith(name.lower().replace('-', '_') + '/')
+    pass # end class
 
-        modname_regex = re.compile('^%s/\S+$' % re.escape(name.lower()))
-        res = bool(modname_regex.match(short_modname.lower()))
-
-        self.log.debug("Checking whether '%s' is a module name for software with name '%s' via regex %s: %s",
-                       short_modname, name, modname_regex.pattern, res)
-
-        return res
-
-
-    pass
