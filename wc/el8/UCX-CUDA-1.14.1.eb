@@ -33,7 +33,7 @@ checksums = [
 dependencies = [
     ('zlib', '1.2.13'),
     ('UCX', version),
-    ('cuda/12.1.1', EXTERNAL_MODULE),
+    ('cuda/12.2.1', EXTERNAL_MODULE),
     ('GDRCopy', '2.3.1'),
 ]
 
