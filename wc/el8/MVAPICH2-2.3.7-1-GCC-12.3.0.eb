@@ -14,9 +14,15 @@ checksums = ['fdd971cf36d6476d007b5d63d19414546ca8a2937b66886f24a1d9ca154634e4']
 
 #builddependencies = [('Bison', '3.0.4')]
 
+# WARNING:
+# MVAPICH for CPUs cannot be build on a server where CUDA drivers are installed.
+# The internally built hwloc v2 will detect CUDA even when cuda is diabled in the MVAPICH
+# configuration step. MPI applications will then have a runtime dependency on libXNVCtrl.
+
 configopts = ''
 configopts += '--disable-alloca '
 configopts += '--disable-cuda '
+configopts += '--without-cuda '
 configopts += '--disable-mcast '
 configopts += '--disable-new-dtags '
 configopts += '--disable-silent-rules '
