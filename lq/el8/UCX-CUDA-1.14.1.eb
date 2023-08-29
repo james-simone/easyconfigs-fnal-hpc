@@ -42,5 +42,6 @@ sanity_check_paths = {
     'dirs': []
 }
 
+sanity_check_commands = ["ucx_info -v"]
 
 moduleclass = 'lib'
