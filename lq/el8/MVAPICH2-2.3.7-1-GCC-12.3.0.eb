@@ -14,9 +14,15 @@ checksums = ['fdd971cf36d6476d007b5d63d19414546ca8a2937b66886f24a1d9ca154634e4']
 
 #builddependencies = [('Bison', '3.0.4')]
 
+# WARNING:
+# MVAPICH for CPUs cannot be build on a server where CUDA drivers are installed.
+# The internally built hwloc v2 will detect CUDA even when cuda is diabled in the MVAPICH
+# configuration step. MPI applications will then have a runtime dependency on libXNVCtrl.
+
 configopts = ''
 configopts += '--disable-alloca '
 configopts += '--disable-cuda '
+configopts += '--without-cuda '
 configopts += '--disable-mcast '
 configopts += '--disable-new-dtags '
 configopts += '--disable-silent-rules '
@@ -30,13 +36,13 @@ configopts += '--enable-static '
 configopts += '--enable-threads=multiple '
 configopts += '--enable-wrapper-rpath=yes '
 configopts += '--with-device=ch3:mrail '
+configopts += '--with-device=ch3:psm '
 configopts += '--with-file-system=lustre,nfs '
 configopts += '--with-hwloc=v2 '
-#configopts += '--with-pm=slurm '
-#configopts += '--with-pmi=pmi2 '
-configopts += '--with-pmi=simple '
+configopts += '--with-pm=slurm '
+configopts += '--with-pmi=pmi2 '
 configopts += '--with-rdma=gen2 '
-#configopts += '--with-slurm=/usr '
+configopts += '--with-slurm=/usr '
 configopts += '--with-thread-package=pthreads '
 
 # needed when gcc ver >= 10
