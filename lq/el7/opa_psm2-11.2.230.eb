@@ -1,0 +1,33 @@
+easyblock = 'MakeCp'
+
+name = 'opa_psm2'
+version = '11.2.230'
+
+homepage = 'https://github.com/cornelisnetworks/opa-psm2'
+description = """
+The PSM Messaging API, or PSM API, is the low-level
+user-level communications interface for the Intel OPA
+family of products. PSM users are enabled with mechanisms
+necessary to implement higher level communications
+interfaces in parallel environments."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/cornelisnetworks/opa-psm2/archive']
+sources = ['PSM2_%(version)s.tar.gz']
+checksums = ['e56262ed9ced4a8b53540cc6370d7ec9733bd5c791a9c05251010c1bbb60c75c']
+
+dependencies = [('numactl', '2.0.16')]
+
+# TODO: files to copy to install path
+files_to_copy = [
+ (['psm2*.h'], 'include'),
+ (['build_release/libpsm2*'],'lib')
+]
+
+sanity_check_paths = {
+    'files': ['include/psm2.h', 'lib/libpsm2.so'],
+    'dirs': [ 'include', 'lib' ]
+}
+
+moduleclass = 'system'
