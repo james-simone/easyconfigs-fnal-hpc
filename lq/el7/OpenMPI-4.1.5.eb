@@ -8,10 +8,10 @@ toolchain = SYSTEM
 
 source_urls = ['https://www.open-mpi.org/software/ompi/v%(version_major_minor)s/downloads']
 sources = [SOURCELOWER_TAR_BZ2]
-#patches = [
-#    'OpenMPI-4.1.1_build-with-internal-cuda-header.patch',
-#    'OpenMPI-4.1.1_opal-datatype-cuda-performance.patch',
-#]
+patches = [
+    'OpenMPI-4.1.1_build-with-internal-cuda-header.patch',
+    'OpenMPI-4.1.1_opal-datatype-cuda-performance.patch',
+]
 checksums = [
     {'openmpi-4.1.5.tar.bz2': 'a640986bc257389dd379886fdae6264c8cfa56bc98b71ce3ae3dfbd8ce61dbe3'},
     {'OpenMPI-4.1.1_build-with-internal-cuda-header.patch':
@@ -27,13 +27,14 @@ checksums = [
 #]
 
 dependencies = [
-    ('zlib', '1.2.13'),
-    ('hwloc', '2.9.2'),
-    ('libevent', '2.1.12'),
-    ('UCX', '1.14.1'),
-#    ('libfabric', '1.16.1'),
-    ('PMIx', '4.2.4'),
-    ('UCC', '1.2.0'),
+    ('zlib', '1.2.13', '', SYSTEM),
+    ('hwloc', '2.9.2', '', SYSTEM),
+    ('libevent', '2.1.12', '', SYSTEM),
+    ('UCX', '1.14.1', '', SYSTEM),
+#    ('libfabric', '1.18.0'),
+    ('PMIx', '4.2.4', '', SYSTEM),
+    ('UCC', '1.2.0', '', SYSTEM),
+    ('opa_psm2', '11.2.230', '', SYSTEM),
 ]
 
 # Update configure to include changes from the "internal-cuda" patch
@@ -51,13 +52,14 @@ preconfigopts = ' && '.join([
 ])
 
 # CUDA related patches and custom configure option can be removed if CUDA support isn't wanted.
-#configopts = '--with-cuda=internal '
-configopts = '--without-cuda '
+configopts = '--with-cuda=internal '
 
 configopts += '--enable-mpi1-compatibility '
 
 # to enable SLURM integration (site-specific)
 configopts += '--with-slurm '
+# OmniPath support
+configopts += '--with-psm2=$EBROOTOPAPSM '
 #configopts += '--with-pmi=/usr --with-pmi-libdir=/usr/lib64'
 
 local_libs = ["mpi_mpifh", "mpi", "ompitrace", "open-pal", "open-rte"]

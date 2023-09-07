@@ -32,9 +32,9 @@ dependencies = [
 ]
 
 configopts = ''
-configopts += ' --with-libevent=$EBROOTLIBEVENT --with-zlib=$EBROOTZLIB'
-configopts += ' --with-hwloc=$EBROOTHWLOC'
-configopts += ' --enable-pmix-binaries'
+configopts += ' --with-libevent=$EBROOTLIBEVENT --with-zlib=$EBROOTZLIB '
+configopts += ' --with-hwloc=$EBROOTHWLOC '
+configopts += ' --enable-pmix-binaries '
 
 buildopts = 'V=1'
 

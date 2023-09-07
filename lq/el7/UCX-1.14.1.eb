@@ -37,9 +37,31 @@ dependencies = [
 
 configure_cmd = "contrib/configure-release"
 
-configopts = '--enable-optimizations --enable-cma --enable-mt --with-verbs --disable-params-check '
-configopts += '--enable-devel-headers --without-java --without-go --disable-doxygen-doc '
+configopts = ''
+configopts += '--disable-assertions '
+configopts += '--disable-debug '
+configopts += '--disable-doxygen-doc '
+configopts += '--disable-logging '
+configopts += '--disable-params-check '
+configopts += '--enable-cma '
+configopts += '--enable-compiler-opt=3 '
+configopts += '--enable-devel-headers '
+configopts += '--enable-mt '
+configopts += '--enable-optimizations '
+configopts += '--enable-shared '
+configopts += '--enable-static '
+configopts += '--with-avx '
+configopts += '--with-openmp '
+configopts += '--with-pic '
+#configopts += '--with-rdmacm '
+configopts += '--with-verbs '
 configopts += '--without-cuda '
+configopts += '--without-gdrcopy '
+configopts += '--without-go '
+configopts += '--without-java '
+configopts += '--without-knem '
+configopts += '--without-rocm '
+configopts += '--without-ugni '
 
 buildopts = 'V=1'
 
