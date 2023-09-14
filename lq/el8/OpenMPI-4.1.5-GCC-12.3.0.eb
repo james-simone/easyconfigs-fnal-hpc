@@ -32,7 +32,7 @@ dependencies = [
     ('libevent', '2.1.12', '', SYSTEM),
     ('UCX', '1.14.1', '', SYSTEM),
 #    ('libfabric', '1.18.0'),
-    ('PMIx', '4.2.4', '', SYSTEM),
+    ('PMIx', '4.2.6', '', SYSTEM),
     ('UCC', '1.2.0', '', SYSTEM),
 ]
 
