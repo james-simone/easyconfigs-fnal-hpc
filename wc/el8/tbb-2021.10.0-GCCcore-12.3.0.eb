@@ -1,0 +1,34 @@
+easyblock = 'CMakeMake'
+
+name = 'tbb'
+version = '2021.10.0'
+
+homepage = 'https://github.com/oneapi-src/oneTBB'
+description = """Intel(R) Threading Building Blocks (Intel(R) TBB) lets you easily write parallel C++ programs that
+ take full advantage of multicore performance, that are portable, composable and have future-proof scalability."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/oneapi-src/oneTBB/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['487023a955e5a3cc6d3a0d5f89179f9b6c0ae7222613a7185b0227ba0c83700b']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('cmake/3.27.2', EXTERNAL_MODULE),
+]
+
+dependencies = [('hwloc', '2.9.2', '', SYSTEM)]
+
+# follow spack
+configopts = ""
+configopts += "-DTBB_STRICT=0 "
+configopts += "-DTBB_CPF=1 "
+configopts += "-DCMAKE_CXX_STANDARD=17 "
+
+sanity_check_paths = {
+    'files': ['lib/libtbb.%s' % SHLIB_EXT, 'lib/libtbbmalloc.%s' % SHLIB_EXT],
+    'dirs': ['lib', 'include', 'share'],
+}
+
+moduleclass = 'lib'

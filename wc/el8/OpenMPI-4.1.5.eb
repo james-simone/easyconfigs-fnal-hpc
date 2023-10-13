@@ -27,13 +27,13 @@ checksums = [
 #]
 
 dependencies = [
-    ('zlib', '1.2.13'),
-    ('hwloc', '2.9.2'),
-    ('libevent', '2.1.12'),
-    ('UCX', '1.14.1'),
-#    ('libfabric', '1.16.1'),
-    ('PMIx', '4.2.4'),
-    ('UCC', '1.2.0'),
+    ('zlib', '1.2.13', '', SYSTEM),
+    ('hwloc', '2.9.2', '', SYSTEM),
+    ('libevent', '2.1.12', '', SYSTEM),
+    ('UCX', '1.14.1', '', SYSTEM),
+#    ('libfabric', '1.18.0'),
+    ('PMIx', '4.2.6', '', SYSTEM),
+    ('UCC', '1.2.0', '', SYSTEM),
 ]
 
 # Update configure to include changes from the "internal-cuda" patch

@@ -27,13 +27,13 @@ checksums = [
 #]
 
 dependencies = [
-    ('zlib', '1.2.13'),
-    ('hwloc', '2.9.2'),
-    ('libevent', '2.1.12'),
-    ('UCX', '1.14.1'),
-#    ('libfabric', '1.16.1'),
-    ('PMIx', '4.2.6'),
-    ('UCC', '1.2.0'),
+    ('zlib', '1.2.13', '', SYSTEM),
+    ('hwloc', '2.9.2', '', SYSTEM),
+    ('libevent', '2.1.12', '', SYSTEM),
+    ('UCX', '1.14.1', '', SYSTEM),
+#    ('libfabric', '1.18.0'),
+    ('PMIx', '4.2.6', '', SYSTEM),
+    ('UCC', '1.2.0', '', SYSTEM),
 ]
 
 # Update configure to include changes from the "internal-cuda" patch
@@ -57,6 +57,10 @@ configopts += '--enable-mpi1-compatibility '
 
 # to enable SLURM integration (site-specific)
 configopts += '--with-slurm '
+
+# OmniPath support
+configopts += '--with-psm2 '
+
 #configopts += '--with-pmi=/usr --with-pmi-libdir=/usr/lib64'
 
 local_libs = ["mpi_mpifh", "mpi", "ompitrace", "open-pal", "open-rte"]

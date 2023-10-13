@@ -5,7 +5,7 @@ versionsuffix = '-CUDA-%(cudaver)s'
 homepage = 'http://mvapich.cse.ohio-state.edu/overview/mvapich2/'
 description = "This is an MPI 3.0 implementation.  It is based on MPICH2 and MVICH."
 
-toolchain = SYSTEM
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 source_urls = ['http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/']
 sources = [SOURCELOWER_TAR_GZ]
@@ -34,7 +34,7 @@ configopts += '--enable-static '
 configopts += '--enable-threads=multiple '
 configopts += '--enable-wrapper-rpath=yes '
 configopts += '--with-device=ch3:mrail '
-configopts += '--with-file-system=lustre,nfs '
+configopts += '--with-file-system=lustre+nfs '
 configopts += '--with-hwloc=v2 '
 configopts += '--with-pm=slurm '
 configopts += '--with-pmi=pmi2 '
@@ -44,8 +44,8 @@ configopts += '--with-thread-package=pthreads '
 configopts += '--enable-cuda '
 configopts += '--with-cuda=$EBROOTCUDA '
 
-# needed for gcc ver >= 10
-#configopts += 'FFLAGS="-w -fallow-argument-mismatch -O2"'
+# needed when gcc ver >= 10
+configopts += 'FFLAGS="-w -fallow-argument-mismatch -O2" '
 
 
 sanity_check_paths = {
