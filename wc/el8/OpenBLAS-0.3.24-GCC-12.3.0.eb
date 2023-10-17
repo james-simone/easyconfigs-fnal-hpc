@@ -39,7 +39,7 @@ builddependencies = [
 ]
 
 # choose a target that supports avx2 but not avx512 bug in openblas.py is exposed by disabling threading
-buildopts = 'TARGET=HASWELL BINARY=64 USE_OPENMP=1 USE_THREAD=1 CC="$CC" FC="$F77"'
+buildopts = 'TARGET=SANDYBRIDGE BINARY=64 USE_OPENMP=1 USE_THREAD=1 CC="$CC" FC="$F77"'
 
 run_lapack_tests = False
 max_failing_lapack_tests_num_errors = 150
