@@ -15,7 +15,7 @@ checksums = ['487023a955e5a3cc6d3a0d5f89179f9b6c0ae7222613a7185b0227ba0c83700b']
 
 builddependencies = [
     ('binutils', '2.40'),
-    ('cmake/3.27.2', EXTERNAL_MODULE),
+    ('cmake/3.27.3', EXTERNAL_MODULE),
 ]
 
 dependencies = [('hwloc', '2.9.2', '', SYSTEM)]
