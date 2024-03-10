@@ -1,0 +1,89 @@
+easyblock = 'CMakeMake'
+
+# 
+# https://docs.nvidia.com/nvshmem/release-notes-install-guide/install-guide/abstract.html
+#
+# TODO: ucx needs --with-dm (device memory)
+#       see gdrcopy kernel and config requirements
+#       
+
+name = 'NVSHMEM'
+version = '2.10.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://developer.nvidia.com/nvshmem'
+description = """NVSHMEM is a parallel programming interface based on OpenSHMEM that provides 
+efficient and scalable communication for NVIDIA GPU clusters. NVSHMEM creates a 
+global address space for data that spans the memory of multiple GPUs and can be 
+accessed with fine-grained GPU-initiated operations, CPU-initiated operations, 
+and operations on CUDA streams.
+"""
+
+toolchain = {'name': 'gompi', 'version': '2023a'}
+toolchainopts = {'pic': True}
+#toolchain = SYSTEM
+
+download_instructions = """The sources of NVSHMEM can be downloaded at NVIDIA's webpage when you have signed up for
+their (free) developer program:
+https://developer.nvidia.com/nvshmem-downloads"""
+
+sources = ['%(namelower)s_src_%(version)s-3.txz']
+#checksums = ['7d4ef226630a94b587d18e02c27decc8b41d6f4ee52a26e25644b23cd18da81f'] # 2.8.0
+checksums = ['72ba2088995fcaf84850cfd3cc83e0dc539fdd8f0b2aaaac7be189eb261562c5'] # 2.10.1
+
+builddependencies = [
+    ('cmake/3.27.2', EXTERNAL_MODULE),
+    #('Autotools', '20220317'),
+    #('pkgconf', '1.8.0'),
+]
+
+dependencies = [
+    ('cuda/12.2.1', EXTERNAL_MODULE),
+    ('UCX-CUDA', '1.14.1', versionsuffix, SYSTEM),
+    ('NCCL', '2.18.5', versionsuffix, SYSTEM),
+    ('PMIx', '4.2.6', '', SYSTEM),
+]
+
+# environment options
+preconfigopts = 'export %s &&' % ' '.join([
+  'CUDA_HOME=${EBROOTCUDA}',
+  'GDRCOPY_HOME=${EBROOTGDRCOPY}',
+  'MPI_HOME=${EBROOTOPENMPI}',
+  'NCCL_HOME=${EBROOTNCCL}',
+  'PMIX_HOME=${EBROOTPMIX}',
+  'UCX_HOME=${EBROOTUCX}',
+  
+  'NVSHMEM_PREFIX=%(installdir)s',
+  'NVSHMEM_EXAMPLES_INSTALL=%(installdir)s/examples',
+  'NVSHMEM_OTHERTEST_INSTALL=%(installdir)s/othertest',
+  'NVSHMEM_PERFTEST_INSTALL=%(installdir)s/perftest',
+  'NVSHMEM_TEST_INSTALL=%(installdir)s/test',
+
+  'NVSHMEM_BUILDDIR=%(builddir)s',
+  'NVSHMEM_EXAMPLES_BUILDDIR=%(builddir)s/examples/obj',
+  'NVSHMEM_OTHERTEST_BUILDDIR=%(builddir)s/othertest/obj',
+  'NVSHMEM_TEST_BUILDDIR=%(builddir)s/test/obj',
+  'NVSHMEM_PERFTEST_BUILDDIR=%(builddir)s/perftest/obj',
+
+  ])
+
+# cmake options
+configopts = ""
+configopts += "-DNVSHMEM_USE_GDRCOPY=ON "
+configopts += "-DNVSHMEM_MPI_SUPPORT=ON "
+configopts += "-DNVSHMEM_UCX_SUPPORT=ON "
+configopts += "-DNVSHMEM_USE_NCCL=ON "
+configopts += "-DNVSHMEM_PMIX_SUPPORT=ON "
+configopts += "-DNVSHMEM_DEFAULT_PMIX=ON "
+configopts += "-DNVSHMEM_BUILD_TESTS=ON "
+configopts += "-DNVSHMEM_BUILD_EXAMPLES=ON "
+#configopts += " "
+
+sanity_check_paths = {
+    'files': ['lib/libnvshmem.a', 'lib/nvshmem_bootstrap_mpi.%s' % SHLIB_EXT],
+    'dirs': ['include']
+}
+
+modextravars = {'NVSHMEM_HOME': '%(installdir)s'}
+
+moduleclass = 'devel'
