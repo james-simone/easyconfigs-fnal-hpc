@@ -55,10 +55,9 @@ assertions = True
 python_bindings = False
 skip_all_tests = True
 
-# workaround
-#runtime_lib_path = "lib/powerpc64le-unknown-linux-gnu"
-
-build_targets = ['PowerPC']
+build_targets = ['PowerPC','NVPTX']
+default_cuda_capability = '7.0'
+cuda_compute_capabilities = ['7.0']
 llvm_runtimes = ['libunwind', 'libcxx', 'libcxxabi', 'openmp', 'compiler-rt']
 llvm_projects = ['polly', 'lld', 'lldb', 'clang-tools-extra', 'pstl' ]
 #, 'pstl', 'flang']
