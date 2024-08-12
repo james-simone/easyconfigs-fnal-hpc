@@ -1,0 +1,38 @@
+easyblock = 'CMakeMake'
+
+name = 'tbb'
+version = '2021.11.0'
+
+homepage = 'https://github.com/oneapi-src/oneTBB'
+description = """Intel(R) Threading Building Blocks (Intel(R) TBB) lets you easily write parallel C++ programs that
+ take full advantage of multicore performance, that are portable, composable and have future-proof scalability."""
+
+toolchain = {'name': 'GCCcore', 'version': '14.2.0'}
+
+# The following option is needed to supress the "stringop-overflow error".
+# See https://github.com/oneapi-src/oneTBB/issues/1180#issuecomment-1690958371 for details.
+toolchainopts = {'extra_cxxflags': '-Wno-error=stringop-overflow'}
+
+source_urls = ['https://github.com/oneapi-src/oneTBB/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['782ce0cab62df9ea125cdea253a50534862b563f1d85d4cda7ad4e77550ac363']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('cmake/3.27.2', EXTERNAL_MODULE),
+]
+
+dependencies = [('hwloc', '2.9.2', '', SYSTEM)]
+
+# follow spack
+configopts = ""
+configopts += "-DTBB_STRICT=0 "
+configopts += "-DTBB_CPF=1 "
+configopts += "-DCMAKE_CXX_STANDARD=17 "
+
+sanity_check_paths = {
+    'files': ['lib/libtbb.%s' % SHLIB_EXT, 'lib/libtbbmalloc.%s' % SHLIB_EXT],
+    'dirs': ['lib', 'include', 'share'],
+}
+
+moduleclass = 'lib'
