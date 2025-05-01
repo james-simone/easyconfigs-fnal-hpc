@@ -12,7 +12,7 @@ description = """
 """
 
 toolchain = SYSTEM
-toolchainopts = {'pic': True}
+#toolchainopts = {'pic': True}
 
 source_urls = ['https://zlib.net/fossils/']
 sources = [SOURCELOWER_TAR_GZ]
